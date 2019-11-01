@@ -102,7 +102,14 @@ if (Meteor.isServer) {
       let age = '24';
       let editor = userId;
 
-      editEit.apply(invocation, [firstname, surname, country, age]);
+      editEit.apply(invocation, [
+        eitId,
+        editor,
+        firstname,
+        surname,
+        country,
+        age,
+      ]);
 
       assert.equal(Eits.find().count(), 1);
     });
@@ -155,5 +162,9 @@ if (Meteor.isServer) {
 
       assert.equal(Eits.find().count(), 1);
     });
+
+    // Can not edit someone else's EIT
+
+    // Can not delete someone else's EIT
   });
 }

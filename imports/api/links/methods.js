@@ -59,6 +59,10 @@ Meteor.methods({
       throw new Meteor.Error('Permission denied: can not edit.');
     }
 
+    if (this.userId !== editor) {
+      throw new Meteor.Error('Permission denied: can not edit.');
+    }
+
     Eits.update(_id, {
       $set: {
         firstname: firstname,
