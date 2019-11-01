@@ -6,6 +6,7 @@ import { Random } from 'meteor/random';
 import { assert } from 'chai';
 import { Eits } from './links.js';
 import './methods.js';
+import './server/publications';
 
 if (Meteor.isServer) {
   describe('Eits database methods', () => {
@@ -60,9 +61,13 @@ if (Meteor.isServer) {
     it('Can add EIT', () => {
       const invocation = { userId };
 
-      const addEit = Meteor.server.method_handlers.eits;
+      const addEit = Meteor.server.method_handlers['eits.insert'];
+      let firstname = 'Adam';
+      let surname = 'Abel';
+      let country = 'Ethiopia';
+      let age = '34';
 
-      addEit.apply(invocation, [eitId]);
+      addEit.apply(invocation, [firstname, surname, country, age]);
 
       assert.equal(Eits.find().count(), 2);
     });
