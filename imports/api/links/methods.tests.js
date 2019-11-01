@@ -1,24 +1,70 @@
-// // Tests for links methods
-// //
-// // https://guide.meteor.com/testing.html
+// Tests for methods
+// https://guide.meteor.com/testing.html
 
-// import { Meteor } from 'meteor/meteor';
-// import { assert } from 'chai';
-// import { Links } from './links.js';
-// import './methods.js';
+import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
+import { assert } from 'chai';
+import { Eits } from './links.js';
+import './methods.js';
 
-// if (Meteor.isServer) {
-//   describe('links methods', function () {
-//     beforeEach(function () {
-//       Links.remove({});
-//     });
+if (Meteor.isServer) {
+  describe('Eits database methods', () => {
+    let userId = Random.id();
+    const username = 'userzero';
 
-//     it('can add a new link', function () {
-//       const addLink = Meteor.server.method_handlers['links.insert'];
+    before(() => {
+      // Create user if not already created
+      let user = Meteor.users.findOne({ username: username });
+      if (!user) {
+        userId = Accounts.createUser({
+          username: username,
+          email: 'poi@yut.com',
+          password: '1234567890',
+        });
+      } else {
+        userId = userId;
+      }
+    });
 
-//       addLink.apply({}, ['meteor.com', 'https://www.meteor.com']);
+    beforeEach(() => {
+      Eits.remove({});
+      eitId = Eits.insert({
+        firstname: 'Gordon',
+        surname: 'Norman',
+        country: 'Kenya',
+        age: '34',
+        createdAt: new Date(),
+        editor: userId,
+      });
+    });
 
-//       assert.equal(Links.find().count(), 1);
-//     });
-//   });
-// }
+    it('Can view all Eits', () => {
+      const userId = Random.id();
+      Eits.insert({
+        firstname: 'Ahmed',
+        surname: 'Samir',
+        country: 'Ivory Coast',
+        age: '27',
+        createdAt: new Date(),
+        editor: userId,
+      });
+
+      const invocation = { userId };
+      const eitsPublication = Meteor.server.publish_handlers['eits.all'];
+
+      EitsPub = eitsPublication.apply(invocation);
+
+      assert.equal(EitsPub.count(), 2);
+    });
+
+    it('Can add EIT', () => {
+      const invocation = { userId };
+
+      const addEit = Meteor.server.method_handlers.eits;
+
+      addEit.apply(invocation, [eitId]);
+
+      assert.equal(Eits.find().count(), 2);
+    });
+  });
+}
