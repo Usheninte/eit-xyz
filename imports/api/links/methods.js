@@ -51,6 +51,10 @@ Meteor.methods({
   },
 
   'eits.edit'(_id, editor, firstname, surname, country, age) {
+    if (!this.userId) {
+      throw new Meteor.Error('Permission denied: can not edit.');
+    }
+
     Eits.update(_id, {
       $set: {
         firstname: firstname,

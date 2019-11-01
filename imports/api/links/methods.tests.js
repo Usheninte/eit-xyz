@@ -107,25 +107,36 @@ if (Meteor.isServer) {
       assert.equal(Eits.find().count(), 1);
     });
 
-    // it('Can not edit EIT is not logged in', () => {
-    //   const invocation = {};
+    it('Can not edit EIT is not logged in', () => {
+      const invocation = {};
 
-    //   const editEit = Meteor.server.method_handlers['eits.edit'];
-    //   let firstname = 'Adamu';
-    //   let surname = 'Usmail';
-    //   let country = 'Sudan';
-    //   let age = '24';
-    //   let editor;
+      const editEit = Meteor.server.method_handlers['eits.edit'];
+      let firstname = 'Adamu';
+      let surname = 'Usmail';
+      let country = 'Sudan';
+      let age = '24';
+      let editor;
 
-    //   assert.throws(
-    //     function() {
-    //       editEit.apply(invocation, [firstname, surname, country, age]);
-    //     },
-    //     Meteor.Error,
-    //     'Permission denied: can not edit.',
-    //   );
+      assert.throws(
+        function() {
+          editEit.apply(invocation, [firstname, surname, country, age, editor]);
+        },
+        Meteor.Error,
+        'Permission denied: can not edit.',
+      );
 
-    //   assert.equal(Eits.find().count(), 1);
-    // });
+      assert.equal(Eits.find().count(), 1);
+    });
+
+    it('Can delete EIT', () => {
+      const invocation = { userId };
+
+      const deleteEit = Meteor.server.method_handlers['eits.remove'];
+      const editor = userId;
+
+      deleteEit.apply(invocation, [eitId, editor]);
+
+      assert.equal(Eits.find().count(), 0);
+    });
   });
 }
