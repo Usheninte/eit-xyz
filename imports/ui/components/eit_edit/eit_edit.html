@@ -3,30 +3,55 @@
   <form class="eit-update eit-form">
     <div class="form-section">
       <label class="form-label">First Name</label>
-      <input placeholder=" enter First Name"
-            class="form-field" 
-            type="text" name="firstname" value={{setEdit.firstname}} required >
+      <input
+        placeholder=" enter First Name"
+        class="form-field"
+        type="text"
+        name="firstname"
+        value="{{ setEdit.firstname }}"
+        required
+      />
     </div>
     <div class="form-section">
       <label class="form-label">Surname</label>
-      <input placeholder=" enter Surname" 
-            class="form-field"
-            type="text" name="surname" value={{setEdit.surname}} required >
+      <input
+        placeholder=" enter Surname"
+        class="form-field"
+        type="text"
+        name="surname"
+        value="{{ setEdit.surname }}"
+        required
+      />
     </div>
     <div class="form-section">
       <label class="form-label">Country</label>
-      <input placeholder=" enter Country" 
-            class="form-field"
-            type="text" name="country" value={{setEdit.country}} required >
+      <input
+        placeholder=" enter Country"
+        class="form-field"
+        type="text"
+        name="country"
+        value="{{ setEdit.country }}"
+        required
+      />
     </div>
     <div class="form-section">
       <label class="form-label">Age</label>
-      <input placeholder=" enter Age" 
-            class="form-field"
-            type="number" name="age" value={{setEdit.age}} required >
+      <input
+        placeholder=" enter Age"
+        class="form-field"
+        type="number"
+        name="age"
+        value="{{ setEdit.age }}"
+        required
+      />
     </div>
-    <button type="button submit" name="submit" 
-            class="btn form-submit btn-info">Save Changes</button>
+    <button
+      type="button submit"
+      name="submit"
+      class="btn eit-update form-submit btn-info"
+    >
+      Save Changes
+    </button>
   </form>
 
   <table>
@@ -38,10 +63,18 @@
       <th></th>
     </tr>
     <tr class="eit-data">
-      <td><span class="eit-item form-data">{{setEdit.firstname}}</span></td>
-      <td><span class="eit-item form-data">{{setEdit.surname}}</span></td>
-      <td><span class="eit-item form-data">{{setEdit.country}}</span></td>
-      <td><span class="eit-item form-data">{{setEdit.age}}</span></td>
+      <td>
+        <span class="eit-item form-data">{{ setEdit.firstname }}</span>
+      </td>
+      <td>
+        <span class="eit-item form-data">{{ setEdit.surname }}</span>
+      </td>
+      <td>
+        <span class="eit-item form-data">{{ setEdit.country }}</span>
+      </td>
+      <td>
+        <span class="eit-item form-data">{{ setEdit.age }}</span>
+      </td>
       <td>
         <span class="mobile-actions">
           <button type="button" class="btn delete btn-danger">Delete</button>
@@ -49,8 +82,10 @@
       </td>
     </tr>
   </table>
-  
+
   <a href="/">
-    <button type="button" class="btn bulk-delete btn-warning">Return to Homepage</button>
+    <button type="button" class="btn btn-warning">
+      Return to Homepage
+    </button>
   </a>
 </template>

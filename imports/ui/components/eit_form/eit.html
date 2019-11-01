@@ -6,35 +6,58 @@
   <form class="eit-add eit-form">
     <div class="form-section">
       <label class="form-label">First Name</label>
-      <input placeholder=" enter First Name"
-            class="form-field"
-            type="text" name="firstname" required >
+      <input
+        placeholder=" enter First Name"
+        class="form-field"
+        type="text"
+        name="firstname"
+        required
+      />
     </div>
     <div class="form-section">
       <label class="form-label">Surname</label>
-      <input placeholder=" enter Surname" 
-            class="form-field"
-            type="text" name="surname" required >
+      <input
+        placeholder=" enter Surname"
+        class="form-field"
+        type="text"
+        name="surname"
+        required
+      />
     </div>
     <div class="form-section">
       <label class="form-label">Country</label>
-      <input placeholder=" enter Country" 
-            class="form-field"
-            type="text" name="country" required >
+      <input
+        placeholder=" enter Country"
+        class="form-field"
+        type="text"
+        name="country"
+        required
+      />
     </div>
     <div class="form-section">
       <label class="form-label">Age</label>
-      <input placeholder=" enter Age" 
-            class="form-field"
-            type="number" name="age" required >
+      <input
+        placeholder=" enter Age"
+        class="form-field"
+        type="number"
+        name="age"
+        required
+      />
     </div>
-    <button type="button submit" name="submit" 
-            class="btn form-submit btn-info">Add new EIT</button>
+    <button
+      type="button submit"
+      name="submit"
+      class="btn eit-add form-submit btn-info"
+    >
+      Add new EIT
+    </button>
   </form>
 
   <table>
     <tr class="table-headers">
+      {{#if currentUser}}
       <th></th>
+      {{/if}}
       <th><uppercase>First Name</uppercase></th>
       <th><uppercase>Surname</uppercase></th>
       <th><uppercase>Country</uppercase></th>
@@ -45,25 +68,42 @@
     </tr>
     {{#each eits}}
     <tr class="eit-data {{#if checked}}checked{{/if}}">
-      <td><input type="checkbox" checked={{checked}} class="toggle-checked"></td>
-      <td><span class="eit-item form-data">{{firstname}}</span></td>
-      <td><span class="eit-item form-data">{{surname}}</span></td>
-      <td><span class="eit-item form-data">{{country}}</span></td>
-      <td><span class="eit-item form-data">{{age}}</span></td>
+      {{#if currentUser}}
       <td>
-        {{#if currentUser }}
+        <input type="checkbox" checked="{{ checked }}" class="toggle-checked" />
+      </td>
+      {{/if}}
+      <td>
+        <span class="eit-item form-data">{{ firstname }}</span>
+      </td>
+      <td>
+        <span class="eit-item form-data">{{ surname }}</span>
+      </td>
+      <td>
+        <span class="eit-item form-data">{{ country }}</span>
+      </td>
+      <td>
+        <span class="eit-item form-data">{{ age }}</span>
+      </td>
+      {{#if currentUser }}
+      <td>
         <span class="actions">
-          <button type="button" class="btn delete delete-ui btn-danger">Delete</button>
-          <a href="/edit/{{_id}}">
+          <button type="button" class="btn delete delete-ui btn-danger">
+            Delete
+          </button>
+          <a href="/edit/{{ _id }}">
             <button type="button" class="btn edit-btn btn-primary">Edit</button>
           </a>
         </span>
-        {{/if}}
       </td>
+      {{/if}}
     </tr>
     {{/each}}
   </table>
+
   {{#if currentUser}}
-  <button type="button" class="btn bulk-delete btn-danger">Delete Selected</button>
+  <button type="button" class="btn bulk-delete btn-danger">
+    Delete Selected
+  </button>
   {{/if}}
 </template>

@@ -27,10 +27,6 @@ Meteor.methods({
   },
 
   'eits.remove'(_id, editor) {
-    if (!this.userId) {
-      throw new Meteor.Error('Permission denied: can not delete.');
-    }
-
     if (this.userId !== editor) {
       throw new Meteor.Error('Permission denied: can not delete.');
     }
@@ -54,14 +50,7 @@ Meteor.methods({
     });
   },
 
-  // 'eits.edit'(_id) {
-  //   let id = FlowRouter.getParam(id);
-  //   return Eits.findOne({ _id: id });
-
-  //   FlowRouter.go('/edit/:id');
-  // },
-
-  'eits.update'(_id, firstname, surname, country, age) {
+  'eits.edit'(_id, firstname, surname, country, age) {
     Eits.update(_id, {
       $set: {
         firstname: firstname,

@@ -18,7 +18,7 @@ Template.eit_edit.events({
   'click .delete'() {
     event.preventDefault(event);
     let id = FlowRouter.getParam('id');
-    Meteor.call('eits.remove', id, this.editor);
+    Meteor.call('eits.remove', this.id, this.editor);
   },
 
   // edit specific EIT
@@ -34,6 +34,6 @@ Template.eit_edit.events({
 
     let id = FlowRouter.getParam('id');
 
-    Meteor.call('eits.update', id, firstname, surname, country, age);
+    Meteor.call('eits.edit', id, firstname, surname, country, age);
   },
 });
