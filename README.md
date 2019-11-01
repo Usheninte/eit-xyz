@@ -1,4 +1,4 @@
-# <span style="text-decoration: underline; text-decoration-color: #76baee;">Project Requirements</span>
+# Project Requirements
 
 - Features (Add, Edit, Delete, Delete Selected), and Hosting.
 - Authentication and Authorization.
