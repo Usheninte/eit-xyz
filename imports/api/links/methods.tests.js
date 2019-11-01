@@ -164,7 +164,50 @@ if (Meteor.isServer) {
     });
 
     // Can not edit someone else's EIT
+    it("Can not edit someone else's EIT", () => {
+      const invocation = { userId };
+
+      const editEit = Meteor.server.method_handlers['eits.edit'];
+      let firstname = 'Adamu';
+      let surname = 'Usmail';
+      let country = 'Sudan';
+      let age = '24';
+      let editor = userId;
+
+      assert.throws(
+        function() {
+          editEit.apply(invocation, [
+            eitId,
+            !editor,
+            firstname,
+            surname,
+            country,
+            age,
+          ]);
+        },
+        Meteor.Error,
+        'Permission denied: you do not have editor access.',
+      );
+
+      assert.equal(Eits.find().count(), 1);
+    });
 
     // Can not delete someone else's EIT
+    it("Can not delete someone else's EIT", () => {
+      const invocation = { userId };
+
+      const deleteEit = Meteor.server.method_handlers['eits.remove'];
+      let editor = userId;
+
+      assert.throws(
+        function() {
+          deleteEit.apply(invocation, [eitId, !editor]);
+        },
+        Meteor.Error,
+        'Permission denied: you do not have editor access.',
+      );
+
+      assert.equal(Eits.find().count(), 1);
+    });
   });
 }

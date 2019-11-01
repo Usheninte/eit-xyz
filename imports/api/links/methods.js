@@ -32,7 +32,9 @@ Meteor.methods({
     }
 
     if (this.userId !== editor) {
-      throw new Meteor.Error('Permission denied: can not delete.');
+      throw new Meteor.Error(
+        'Permission denied: you do not have editor access.',
+      );
     }
 
     return Eits.remove({
@@ -60,7 +62,9 @@ Meteor.methods({
     }
 
     if (this.userId !== editor) {
-      throw new Meteor.Error('Permission denied: can not edit.');
+      throw new Meteor.Error(
+        'Permission denied: you do not have editor access.',
+      );
     }
 
     Eits.update(_id, {
