@@ -8,7 +8,7 @@ import { Eits } from './links.js';
 Meteor.methods({
   'eits.insert'(firstname, surname, country, age) {
     if (!this.userId) {
-      throw new Meteor.Error('Permission Denied');
+      throw new Meteor.Error('Permission denied: can not insert.');
     }
 
     check(firstname, String);
@@ -50,7 +50,7 @@ Meteor.methods({
     });
   },
 
-  'eits.edit'(_id, firstname, surname, country, age) {
+  'eits.edit'(_id, editor, firstname, surname, country, age) {
     Eits.update(_id, {
       $set: {
         firstname: firstname,

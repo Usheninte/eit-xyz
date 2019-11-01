@@ -71,5 +71,61 @@ if (Meteor.isServer) {
 
       assert.equal(Eits.find().count(), 2);
     });
+
+    it('Can not add EIT if not logged in', () => {
+      const invocation = {};
+
+      const addEit = Meteor.server.method_handlers['eits.insert'];
+      let firstname = 'Adam';
+      let surname = 'Abel';
+      let country = 'Ethiopia';
+      let age = '34';
+
+      assert.throws(
+        function() {
+          addEit.apply(invocation, [firstname, surname, country, age]);
+        },
+        Meteor.Error,
+        'Permission denied: can not insert.',
+      );
+
+      assert.equal(Eits.find().count(), 1);
+    });
+
+    it('Can edit EIT', () => {
+      const invocation = { userId };
+
+      const editEit = Meteor.server.method_handlers['eits.edit'];
+      let firstname = 'Adamu';
+      let surname = 'Usmail';
+      let country = 'Sudan';
+      let age = '24';
+      let editor = userId;
+
+      editEit.apply(invocation, [firstname, surname, country, age]);
+
+      assert.equal(Eits.find().count(), 1);
+    });
+
+    // it('Can not edit EIT is not logged in', () => {
+    //   const invocation = {};
+
+    //   const editEit = Meteor.server.method_handlers['eits.edit'];
+    //   let firstname = 'Adamu';
+    //   let surname = 'Usmail';
+    //   let country = 'Sudan';
+    //   let age = '24';
+    //   let editor;
+
+    //   assert.throws(
+    //     function() {
+    //       editEit.apply(invocation, [firstname, surname, country, age]);
+    //     },
+    //     Meteor.Error,
+    //     'Permission denied: can not edit.',
+    //   );
+
+    //   assert.equal(Eits.find().count(), 1);
+    // });
   });
 }
