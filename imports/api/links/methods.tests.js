@@ -132,11 +132,28 @@ if (Meteor.isServer) {
       const invocation = { userId };
 
       const deleteEit = Meteor.server.method_handlers['eits.remove'];
-      const editor = userId;
+      let editor = userId;
 
       deleteEit.apply(invocation, [eitId, editor]);
 
       assert.equal(Eits.find().count(), 0);
+    });
+
+    it('Can not delete EIT if not logged in', () => {
+      const invocation = {};
+
+      const deleteEit = Meteor.server.method_handlers['eits.remove'];
+      let editor;
+
+      assert.throws(
+        function() {
+          deleteEit.apply(invocation, [eitId, editor]);
+        },
+        Meteor.Error,
+        'Permission denied: can not delete.',
+      );
+
+      assert.equal(Eits.find().count(), 1);
     });
   });
 }

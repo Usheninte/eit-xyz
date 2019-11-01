@@ -27,6 +27,10 @@ Meteor.methods({
   },
 
   'eits.remove'(_id, editor) {
+    if (!this.userId) {
+      throw new Meteor.Error('Permission denied: can not delete.');
+    }
+
     if (this.userId !== editor) {
       throw new Meteor.Error('Permission denied: can not delete.');
     }
