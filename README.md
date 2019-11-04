@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Usheninte/eit-xyz.svg?branch=master)](https://travis-ci.com/Usheninte/eit-xyz)
+
 # Project Requirements
 
 - Features (Add, Edit, Delete, Delete Selected), and Hosting.
